@@ -33,3 +33,4 @@ C:\Users\LENOVO\OneDrive\Masaüstü\APİ\TodoApi\obj\Debug\net8.0\refint\TodoApi
 C:\Users\LENOVO\OneDrive\Masaüstü\APİ\TodoApi\obj\Debug\net8.0\TodoApi.pdb
 C:\Users\LENOVO\OneDrive\Masaüstü\APİ\TodoApi\obj\Debug\net8.0\TodoApi.genruntimeconfig.cache
 C:\Users\LENOVO\OneDrive\Masaüstü\APİ\TodoApi\obj\Debug\net8.0\ref\TodoApi.dll
+C:\Users\LENOVO\OneDrive\Masaüstü\APİ\TodoApi\obj\Debug\net8.0\TodoApi.sourcelink.json
