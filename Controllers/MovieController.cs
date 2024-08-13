@@ -20,7 +20,15 @@ namespace TodoApi.Controllers
             new Film { Id = 7, name = "The Matrix", genre = "Action, Sci-Fi", year = 1999, director = "Lana Wachowski, Lilly Wachowski", imdbRating = 8.7 },
             new Film { Id = 8, name = "The Lord of the Rings: The Return of the King", genre = "Action, Adventure, Drama", year = 2003, director = "Peter Jackson", imdbRating = 8.9 },
             new Film { Id = 9, name = "Fight Club", genre = "Drama", year = 1999, director = "David Fincher", imdbRating = 8.8 },
-            new Film { Id = 10, name = "Pulp Fiction", genre = "Crime, Drama", year = 1994, director = "Quentin Tarantino", imdbRating = 8.9 }
+            new Film { Id = 10, name = "Pulp Fiction", genre = "Crime, Drama", year = 1994, director = "Quentin Tarantino", imdbRating = 8.9 },
+            new Film { Id = 11, name = "The Prestige", genre = "Drama, Mystery, Sci-Fi", year = 2006, director = "Christopher Nolan", imdbRating = 8.5 },
+            new Film { Id = 12, name = "Se7en", genre = "Crime, Drama, Mystery", year = 1995, director = "David Fincher", imdbRating = 8.6 },
+            new Film { Id = 13, name = "The Departed", genre = "Crime, Drama, Thriller", year = 2006, director = "Martin Scorsese", imdbRating = 8.5 },
+            new Film { Id = 14, name = "Gladiator", genre = "Action, Adventure, Drama", year = 2000, director = "Ridley Scott", imdbRating = 8.5 },
+            new Film { Id = 15, name = "Parasite", genre = "Comedy, Drama, Thriller", year = 2019, director = "Bong Joon-ho", imdbRating = 8.6 },
+            new Film { Id = 16, name = "The Lion King", genre = "Animation, Adventure, Drama", year = 1994, director = "Roger Allers, Rob Minkoff", imdbRating = 8.5 },
+            new Film { Id = 17, name = "The Social Network", genre = "Biography, Drama", year = 2010, director = "David Fincher", imdbRating = 7.7 }
+
         };
 
         private readonly ILogger<FilmController> _logger;
