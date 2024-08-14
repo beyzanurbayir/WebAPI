@@ -64,5 +64,21 @@ namespace TodoApi.Controllers
 
             return Ok(filmNames);
         }
+ // Film ekleme
+        [HttpPost]
+        public IActionResult Post([FromBody] Film film)
+        {
+            if (film == null)
+            {
+                return BadRequest("Film verisi boş.");
+            }
+
+            // Film Id'sini dinamik olarak oluşturabilirsiniz. Burada en yüksek mevcut Id'ye 1 ekleniyor.
+            film.Id = Films.Max(f => f.Id) + 1;
+
+            Films.Add(film);
+            return CreatedAtAction(nameof(GetByName), new { name = film.name }, film);
+        }
     }
+
 }
