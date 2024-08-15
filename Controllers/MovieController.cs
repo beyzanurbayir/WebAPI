@@ -70,15 +70,29 @@ public IActionResult Post([FromBody] Film film)
 {
     if (film == null)
     {
-        return BadRequest("Film verisi boş.");
+        return BadRequest(new { message = "Film verisi boş." });
     }
 
-    // Film Id'sini dinamik olarak oluşturabilirsiniz. Burada en yüksek mevcut Id'ye 1 ekleniyor.
+    // "year" değişkeni için 4 basamak kontrolü
+    if (film.year.ToString().Length != 4)
+    {
+        return BadRequest(new { message = "Yıl 4 basamaktan oluşmalıdır." });
+    }
+
+    // "imdbRating" değişkeni için 0.0 ile 10.0 arasında olma kontrolü
+    if (film.imdbRating < 0.0 || film.imdbRating > 10.0)
+    {
+        return BadRequest(new { message = "IMDb puanı 0 ile 10 arasında olmalıdır." });
+    }
+
+    // Film Id'sini dinamik olarak oluşturun
     film.Id = Films.Count > 0 ? Films.Max(f => f.Id) + 1 : 1;
 
     Films.Add(film);
     return CreatedAtAction(nameof(GetByName), new { name = film.name }, film);
 }
+
+
 
     }
 
