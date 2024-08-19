@@ -15,7 +15,7 @@ namespace TodoApi.Models
     public int year { get; set; }
 
     [Range(0.0, 10.0, ErrorMessage = "IMDb puanı 0 ile 10 arasında olmalıdır.")]
-    public double imdbRating { get; set; }
+    public float imdbRating { get; set; }
 
     public string? director { get; set; }
     }
