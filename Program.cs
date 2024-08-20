@@ -22,6 +22,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<MovieDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// IFilmRepository arayüzünü FilmRepository sınıfıyla ilişkilendirir
+builder.Services.AddScoped<IFilmRepository, FilmRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
