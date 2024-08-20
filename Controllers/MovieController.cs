@@ -83,7 +83,7 @@ namespace TodoApi.Controllers
         }
 
         // Film ekleme
-        [HttpPost]
+       [HttpPost]
         public IActionResult Post([FromBody] FilmDto filmDto)
         {
             if (!ModelState.IsValid)
