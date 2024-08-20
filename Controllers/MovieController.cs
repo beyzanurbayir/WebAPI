@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Collections.Generic;
+using TodoApi.Models; 
 
 namespace TodoApi.Controllers
 {
@@ -82,33 +83,29 @@ namespace TodoApi.Controllers
         }
 
         // Film ekleme
-       [HttpPost]
-            public IActionResult Post([FromBody] Film film)
+        [HttpPost]
+        public IActionResult Post([FromBody] FilmDto filmDto)
+        {
+            if (!ModelState.IsValid)
             {
-                if (film == null)
-                {
-                    return BadRequest(new { message = "Film verisi boş." });
-                }
-
-                // "year" değişkeni için 4 basamak kontrolü
-                if (film.ReleaseYear.ToString().Length != 4)
-                {
-                    return BadRequest(new { message = "Yıl 4 basamaktan oluşmalıdır." });
-                }
-
-                // "imdbRating" değişkeni için 0.0 ile 10.0 arasında olma kontrolü
-                if (film.IMDbRating < 0.0 || film.IMDbRating > 10.0)
-                {
-                    return BadRequest(new { message = "IMDb puanı 0 ile 10 arasında olmalıdır." });
-                }
-
-                // _context.Films.Add(film); 
-                // _context.SaveChanges();
-                _filmRepository.Add(film);
-
-                // Film eklendikten sonra GetById metodunu çağırarak film detaylarını döndür
-                return CreatedAtAction(nameof(GetById), new { id = film.Id }, film);
+                return BadRequest(ModelState);
             }
+
+            // DTO'dan Film entity'sine dönüşüm
+            var film = new Film
+            {
+                Title = filmDto.Title,
+                Genre = filmDto.Genre,
+                Director = filmDto.Director,
+                ReleaseYear = filmDto.ReleaseYear,
+                IMDbRating = filmDto.IMDbRating
+            };
+
+            _filmRepository.Add(film);
+
+            // Film eklendikten sonra GetById metodunu çağırarak film detaylarını döndür
+            return CreatedAtAction(nameof(GetById), new { id = film.Id }, film);
+        }
 
     }
 }
