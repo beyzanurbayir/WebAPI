@@ -107,5 +107,21 @@ namespace TodoApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = film.Id }, film);
         }
 
+        [HttpDelete("name/{name}")]
+        public IActionResult DeleteByName(string name)
+        {
+            var film = _filmRepository.GetAll()
+                .FirstOrDefault(f => f.Title != null && f.Title.ToLower() == name.ToLower());
+
+            if (film == null)
+            {
+                return NotFound(new { message = "Film bulunamadı." });
+            }
+
+            _filmRepository.Delete(film.Id); // Film'in ID'sini kullanarak silme işlemi gerçekleştiriyoruz.
+
+            return NoContent(); // Başarılı silme işlemi için HTTP 204 No Content döndürür.
+        }
+
     }
 }

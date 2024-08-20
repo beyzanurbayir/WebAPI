@@ -30,12 +30,13 @@ public class FilmRepository : IFilmRepository  //IFilmRepository arayüzünü im
     }
 
     public void Delete(int id)
+{
+    var film = _context.Films.Find(id);
+    if (film != null)
     {
-        var film = _context.Films.Find(id);
-        if (film != null)
-        {
-            _context.Films.Remove(film);
-            _context.SaveChanges();
-        }
+        _context.Films.Remove(film);
+        _context.SaveChanges();
     }
+}
+
 }
