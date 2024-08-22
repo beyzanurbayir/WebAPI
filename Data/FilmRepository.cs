@@ -1,6 +1,6 @@
-public class FilmRepository : IFilmRepository  //IFilmRepository arayüzünü implemente eder
+public class FilmRepository : IFilmRepository
 {
-    private readonly MovieDbContext _context;   //Veritabanı işlemleri MovieDbContext aracılığıyla yapılır
+    private readonly MovieDbContext _context;  
 
     public FilmRepository(MovieDbContext context)
     {
@@ -29,14 +29,13 @@ public class FilmRepository : IFilmRepository  //IFilmRepository arayüzünü im
         _context.SaveChanges();
     }
 
-    public void Delete(int id)
-{
-    var film = _context.Films.Find(id);
-    if (film != null)
+    public bool DeleteByName(string name)
     {
+        var film = _context.Films.FirstOrDefault(f => f.Title != null && f.Title.ToLower() == name.ToLower());
+        if (film == null) return false;
+
         _context.Films.Remove(film);
         _context.SaveChanges();
+        return true;
     }
-}
-
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using StackExchange.Redis;
+using TodoApi.Models; // Doğru ad alanını kullanın
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,6 @@ builder.Services.AddControllers();
 var redis = ConnectionMultiplexer.Connect("localhost:6379");
 builder.Services.AddSingleton<IConnectionMultiplexer>(redis);
 builder.Services.AddSingleton<RedisCacheService>();
-
 
 // Add CORS services
 builder.Services.AddCors(options =>
@@ -41,16 +41,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    c.RoutePrefix = "swagger"; // Swagger UI'ye http://localhost:5090/swagger üzerinden erişilir
-});
-
-
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.RoutePrefix = "swagger"; // Swagger UI'ye http://localhost:5090/swagger üzerinden erişilir
+    });
 }
-
 
 app.UseHttpsRedirection();
 

@@ -1,13 +1,9 @@
-public interface IFilmRepository : IRepository<Film>
+//Data/IFilmRepository.cspublic interface IFilmRepository
+public interface IFilmRepository
 {
-    // Film modeline özgü ek metodlar burada tanımlanabilir.
-    // örneğin: Belirli bir türdeki filmleri listelemek için:
-    /*
-            public interface IFilmRepository : IRepository<Film>
-        {
-            IEnumerable<Film> GetByGenre(string genre);
-        }
-    */
-
-    
+    IEnumerable<Film> GetAll();
+    Film GetById(int id);
+    void Add(Film film);
+    void Update(Film film);
+    bool DeleteByName(string name);
 }

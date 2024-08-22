@@ -5,6 +5,8 @@ namespace TodoApi.Models
 {
     public class FilmDto
     {
+        public int id { get; set; }
+
         [Required(ErrorMessage = "Film adı zorunludur.")]
         public string? Title { get; set; }
 
