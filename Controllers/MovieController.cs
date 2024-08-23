@@ -88,7 +88,7 @@ namespace TodoApi.Controllers
         }
 
 
-
+        // Tüm filmleri listele
         [HttpGet("names")]
         public IActionResult GetAllFilmNames()
         {
@@ -102,8 +102,7 @@ namespace TodoApi.Controllers
 
             if (filmNames != null)
             {
-                // Silinen film isimlerini kontrol et ve kaldır
-                var outdatedFilmNames = filmNames
+                var outdatedFilmNames = filmNames   //Artık geçerli olmayan film adları bulunur ve listeden çıkarılır.
                     .Where(name => !allFilmNames.Contains(name.ToLower()))
                     .ToList();
 
@@ -118,7 +117,7 @@ namespace TodoApi.Controllers
                 }
             }
 
-            // POST işlemi yapılmış mı kontrol et
+            // Son eklenen film adı Redis'ten alınır.
             var postFilmName = _cacheService.Get<string>("post_film_name");
 
             if (postFilmName != null)
@@ -241,45 +240,41 @@ namespace TodoApi.Controllers
         }
 
 
-     // Film silme
-[HttpDelete("name/{name}")]
-public IActionResult DeleteByName(string name)
-{
-    // Film veritabanından isme göre sil
-    bool deleteSuccess = _filmRepository.DeleteByName(name);
+       // Film silme
+        [HttpDelete("name/{name}")]
+        public IActionResult DeleteByName(string name)
+        {
+            // Film veritabanından isme göre sil
+            bool deleteSuccess = _filmRepository.DeleteByName(name);
 
-    if (!deleteSuccess)
-    {
-        // Silme başarısızsa, 500 Internal Server Error yanıtı döndür
-        return StatusCode(500, "Film veritabanından silinemedi.");
-    }
+            if (!deleteSuccess)
+            {
+                // Silme başarısızsa, 500 Internal Server Error yanıtı döndür
+                return StatusCode(500, "Film veritabanından silinemedi.");
+            }
 
-    // Redis'ten film bilgilerini kaldır
-    string cacheKey = $"film_{name.ToLower()}";
-    bool redisDeleteSuccess = _cacheService.Remove(cacheKey);
+            // Redis'ten film bilgilerini kaldır
+            string cacheKey = $"film_{name.ToLower()}";
+            bool redisDeleteSuccess = _cacheService.Remove(cacheKey);
 
-    if (!redisDeleteSuccess)
-    {
-        // Redis'ten kaldırma başarısızsa, hata günlüğü yaz ve 500 yanıtı döndür
-        _logger.LogError($"Film '{name}' veritabanından silindi ancak Redis'ten silinemedi.");
-        return StatusCode(500, "Film veritabanından silindi ancak Redis'ten silinemedi.");
-    }
+            if (!redisDeleteSuccess)
+            {
+                // Redis'ten kaldırma başarısızsa, hata günlüğü yaz ve 500 yanıtı döndür
+                _logger.LogError($"Film '{name}' veritabanından silindi ancak Redis'ten silinemedi.");
+                return StatusCode(500, "Film veritabanından silindi ancak Redis'ten silinemedi.");
+            }
 
-    // Film isimlerini güncelle
-    string filmNamesCacheKey = "film_names";
-    var filmNames = _cacheService.Get<List<string>>(filmNamesCacheKey);
+            // Film isimlerini güncelle
+            string filmNamesCacheKey = "film_names";
+            var filmNames = _cacheService.Get<List<string>>(filmNamesCacheKey);
 
-    if (filmNames != null)
-    {
-        filmNames.Remove(name);
-        _cacheService.Set(filmNamesCacheKey, filmNames);
-    }
+            if (filmNames != null)
+            {
+                filmNames.Remove(name);
+                _cacheService.Set(filmNamesCacheKey, filmNames);
+            }
 
-    return NoContent();
-}
-
-
-
-
+            return NoContent();
+        }
     }
 }
