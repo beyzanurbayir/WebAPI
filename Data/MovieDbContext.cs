@@ -4,7 +4,7 @@ public class MovieDbContext : DbContext
 {public MovieDbContext(DbContextOptions<MovieDbContext> options)
     : base(options)
 { }
-    public DbSet<Film> Films { get; set; } // 'Movies' yerine 'Films' kullanıyoruz
+    public DbSet<Film> Films { get; set; } // 'Movies' yerine 'Films' kullanılıyor
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

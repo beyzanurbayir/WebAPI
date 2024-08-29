@@ -6,7 +6,7 @@ namespace TodoApi.Models
     {public long Id { get; set; }
 
     [Required]
-    public string? name { get; set; } // Nullable özellik
+    public string? name { get; set; } 
 
     [Required]
     public string? genre { get; set; }

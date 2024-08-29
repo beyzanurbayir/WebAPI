@@ -1,5 +1,3 @@
-// Data/IRepository.cs
-
 public interface IRepository<T> where T : class  //Temel CRUD işlemleri için metodları tanımlar
 {
     IEnumerable<T> GetAll();

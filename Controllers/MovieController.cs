@@ -1,5 +1,3 @@
-//Controllers/MovieController.cs
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;

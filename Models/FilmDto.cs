@@ -1,4 +1,3 @@
-// Models/FilmDto.cs
 using System.ComponentModel.DataAnnotations;
 
 namespace TodoApi.Models

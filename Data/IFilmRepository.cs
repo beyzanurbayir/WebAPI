@@ -1,4 +1,3 @@
-//Data/IFilmRepository.cspublic interface IFilmRepository
 public interface IFilmRepository
 {
     IEnumerable<Film> GetAll();
